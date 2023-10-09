@@ -2,6 +2,7 @@
 <script setup>
 import { ref, reactive, onBeforeMount } from 'vue'
 import axios from 'axios'
+import {cart} from '../store/cart'
 const products = ref([])
 function getSlug(title) {
     return title.toLowerCase().replace(/\s+/g, '-')
@@ -29,7 +30,9 @@ onBeforeMount(() => {
     <div class="bg-white">
         <div class="mx-auto px-12 py-8 ">
             <h2 class="text-2xl font-bold tracking-tight text-gray-900">Products</h2>
-
+            <p>
+                {{ cart }}
+            </p>
             <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-20">
                 <div v-for="product in products" :key="product.id" class="group relative">
                     <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
@@ -46,7 +49,7 @@ onBeforeMount(() => {
                         </div>
                         <p class="text-sm font-medium text-gray-900">${{ product.price }}</p>
                     </div>
-                    <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded">
+                    <button @click="cart.addItem(product)" class="mt-2 bg-blue-500 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded">
                         Add To Cart
                     </button>
                 </div>

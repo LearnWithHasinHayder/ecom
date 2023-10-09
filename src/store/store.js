@@ -3,6 +3,7 @@ import router from '../router/router'
 const authStore = reactive({
     isAuthenticated: localStorage.getItem('auth') == 1,
     user: JSON.parse(localStorage.getItem('user')),
+
     authenticate(username, password){
         fetch('http://localhost:8000/api/login',{
             method: 'POST',
@@ -17,6 +18,8 @@ const authStore = reactive({
                 authStore.user = res
                 localStorage.setItem('auth', 1)
                 localStorage.setItem('user', JSON.stringify(res))
+                localStorage.setItem('cart', '{}')
+                localStorage.setItem('totalPrice', 0)
                 router.push('/')
             }
         })
@@ -26,6 +29,8 @@ const authStore = reactive({
         authStore.user = {}
         localStorage.setItem('auth', 0)
         localStorage.setItem('user', '{}')
+        localStorage.setItem('cart', '{}')
+        localStorage.setItem('totalPrice', 0)
         router.push('/login')
     }
 })
