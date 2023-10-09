@@ -2,7 +2,7 @@
 <script setup>
 import { ref, reactive, onBeforeMount } from 'vue'
 import axios from 'axios'
-const posts = ref([])
+const products = ref([])
 function getSlug(title) {
     return title.toLowerCase().replace(/\s+/g, '-')
 }
@@ -12,36 +12,48 @@ onBeforeMount(() => {
     //     .then(data => {
     //         posts.value = data.posts
     //     })
-    axios.get('https://dummyjson.com/posts?limit=20')
+    axios.get('http://localhost:8000/api/products')
         .then(res => {
-            posts.value = res.data.posts
+            products.value = res.data
+            console.log(res.data)
         })
 })
 
-function loadMore() {
-    axios.get('https://dummyjson.com/posts?limit=20&skip=20')
-        .then(res => {
-            posts.value = [...posts.value, ...res.data.posts]
-        })
-}
+// function loadMore() {
+//     axios.get('https://dummyjson.com/posts?limit=20&skip=20')
+//         .then(res => {
+//             posts.value = [...posts.value, ...res.data.posts]
+//         })
+// }
 </script>
 <template>
-    <!-- <h1 class="text-2xl mb-3">This is posts page</h1> -->
-    <article class="mb-10" v-for="post in posts" :key="post.id">
-        <h1 class="text-xl mb-2">
-            <!-- <router-link :to="{ name: 'post', params: { id: getSlug(post.title) } }">{{ post.title }}</router-link> -->
-            <router-link :to="{ name: 'post', params: { id: post.id } }">{{ post.title }}</router-link>
-        </h1>
-        <p>
-            <router-link :to="{ name: 'post', params: { id: post.id } }">
-                <img :src="`//source.unsplash.com/random/300x200?${post.id}`" alt="">
-            </router-link>
-            {{ post.body }}
-        </p>
-    </article>
-    <button @click="loadMore()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" v-if="posts.length>0">
-        Load More
-    </button>
+    <div class="bg-white">
+        <div class="mx-auto px-12 py-8 ">
+            <h2 class="text-2xl font-bold tracking-tight text-gray-900">Products</h2>
+
+            <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-20">
+                <div v-for="product in products" :key="product.id" class="group relative">
+                    <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+                        <img :src="product.image" class="h-full w-full object-cover object-center lg:h-full lg:w-full" />
+                    </div>
+                    <div class="mt-4 flex justify-between">
+                        <div>
+                            <h3 class="text-sm text-gray-700">
+                                <router-link :to="{ name: 'post', params: { id: product.id } }">
+                                    {{ product.title }}
+                                </router-link>
+                            </h3>
+
+                        </div>
+                        <p class="text-sm font-medium text-gray-900">${{ product.price }}</p>
+                    </div>
+                    <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded">
+                        Add To Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <style></style>
