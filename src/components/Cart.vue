@@ -20,7 +20,7 @@ function getSlug(title) {
         <div class="mx-auto px-12 py-8 ">
             <h2 class="text-2xl font-bold tracking-tight text-gray-900">Cart</h2>
             <p class="my-10">
-                {{ cart }}
+                <!-- {{ cart }} -->
             </p>
             <div>
                 <div class="flex items-center my-5" v-for="item in cart.items">
@@ -47,6 +47,9 @@ function getSlug(title) {
                         <strong>{{ cart.totalPrice }}</strong>
                     </p>
                 </div>
+                <button @click="cart.saveCartInLocalStorage()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  Update Cart
+                </button>
             </div>
         </div>
     </div>

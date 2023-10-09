@@ -8,30 +8,21 @@ function getSlug(title) {
     return title.toLowerCase().replace(/\s+/g, '-')
 }
 onBeforeMount(() => {
-    // fetch('https://dummyjson.com/posts?limit=20')
-    //     .then(res => res.json())
-    //     .then(data => {
-    //         posts.value = data.posts
-    //     })
+
     axios.get('http://localhost:8000/api/products')
         .then(res => {
             products.value = res.data
         })
 })
 
-// function loadMore() {
-//     axios.get('https://dummyjson.com/posts?limit=20&skip=20')
-//         .then(res => {
-//             posts.value = [...posts.value, ...res.data.posts]
-//         })
-// }
+
 </script>
 <template>
     <div class="bg-white">
         <div class="mx-auto px-12 py-8 ">
             <h2 class="text-2xl font-bold tracking-tight text-gray-900">Products</h2>
             <p>
-                {{ cart }}
+                <!-- {{ cart }} -->
             </p>
             <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-20">
                 <div v-for="product in products" :key="product.id" class="group relative">
