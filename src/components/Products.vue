@@ -15,7 +15,6 @@ onBeforeMount(() => {
     axios.get('http://localhost:8000/api/products')
         .then(res => {
             products.value = res.data
-            console.log(res.data)
         })
 })
 
@@ -39,7 +38,7 @@ onBeforeMount(() => {
                     <div class="mt-4 flex justify-between">
                         <div>
                             <h3 class="text-sm text-gray-700">
-                                <router-link :to="{ name: 'post', params: { id: product.id } }">
+                                <router-link :to="{ name: 'product', params: { id: product.id } }">
                                     {{ product.title }}
                                 </router-link>
                             </h3>

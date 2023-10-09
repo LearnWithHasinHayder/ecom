@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../components/Home.vue'
 import About from '../components/About.vue'
 import Contact from '../components/Contact.vue'
-import Posts from '../components/Posts.vue'
-import Post from '../components/Post.vue'
+import Products from '../components/Products.vue'
+import Product from '../components/Product.vue'
 import Sidebar from '../components/Sidebar.vue'
 import Protected from '../components/Protected.vue'
 import Login from '../components/Login.vue'
@@ -56,17 +56,17 @@ const routes = [
         }
     },
     {
-        path: '/posts', components: {
-            default: Posts,
+        path: '/products', components: {
+            default: Products,
             LeftSideBar: Sidebar
         }
     },
     {
-        path: '/posts/:id', components: {
-            default: Post,
+        path: '/products/:id', components: {
+            default: Product,
             LeftSideBar: Sidebar
         },
-        name: 'post',
+        name: 'product',
     },
     {
         path: '/protected', components: {   

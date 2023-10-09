@@ -16,7 +16,7 @@ const auth = authStore
             <router-link to="/contact">Contact</router-link>
           </li>
           <li>
-            <router-link to="/posts">Posts</router-link>
+            <router-link to="/products">Products</router-link>
           </li>
           <li>
             <router-link to="/protected">Protected</router-link>
