@@ -25,7 +25,9 @@ function getSlug(title) {
             <div>
                 <div class="flex items-center my-5" v-for="item in cart.items">
                     <p class="w-2/3">
-                        {{ item.product.title }}
+                        <router-link :to="{ name: 'product', params: { id: item.product.id } }">
+                            {{ item.product.title }}
+                        </router-link>
                     </p>
                     <p class="w-[100px]">
                         {{ item.product.price }}
@@ -39,7 +41,7 @@ function getSlug(title) {
                         Total
                     </p>
                     <p class="w-[100px]">
-                        
+
                     </p>
                     <p>
                         <strong>{{ cart.totalPrice }}</strong>

@@ -1,6 +1,13 @@
 import {reactive, computed} from 'vue'
 const cart = reactive({
     items:{},
+    totalCartItems:computed(()=>{
+        let total = 0
+        for(let id in cart.items){
+            total += cart.items[id].quantity
+        }
+        return total
+    }),
     totalPrice:computed(()=>{
         let total = 0
         for(let id in cart.items){
@@ -12,9 +19,11 @@ const cart = reactive({
         if(this.items[product.id]){
             this.items[product.id].quantity++
         }else{
+            const clonedProduct= {...product}
+            delete(clonedProduct.description)
             this.items[product.id] = {
                 quantity: 1,
-                product: product
+                product: clonedProduct
             }
         }
         cart.saveCartInLocalStorage()
