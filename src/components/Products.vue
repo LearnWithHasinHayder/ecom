@@ -3,6 +3,7 @@
 import { ref, reactive, onBeforeMount } from 'vue'
 import axios from 'axios'
 import {cart} from '../store/cart'
+import { wishlist } from '../store/wishlist';
 const products = ref([])
 function getSlug(title) {
     return title.toLowerCase().replace(/\s+/g, '-')
@@ -13,6 +14,8 @@ onBeforeMount(() => {
         .then(res => {
             products.value = res.data
         })
+
+    wishlist.fetchWishlistItems()
 })
 
 
@@ -22,7 +25,7 @@ onBeforeMount(() => {
         <div class="mx-auto px-12 py-8 ">
             <h2 class="text-2xl font-bold tracking-tight text-gray-900">Products</h2>
             <p>
-                <!-- {{ cart }} -->
+                {{ wishlist.items }}
             </p>
             <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-20">
                 <div v-for="product in products" :key="product.id" class="group relative">
@@ -40,9 +43,12 @@ onBeforeMount(() => {
                         </div>
                         <p class="text-sm font-medium text-gray-900">${{ product.price }}</p>
                     </div>
-                    <button @click="cart.addItem(product)" class="mt-2 bg-blue-500 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded">
-                        Add To Cart
-                    </button>
+                    <div class="flex justify-between items-center">
+                        <button @click="cart.addItem(product)" class="mt-2 bg-blue-500 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded">
+                            Add To Cart
+                        </button>
+                        <img @click="wishlist.toggleWishList(product)" class="w-8 cursor-pointer" :src="wishlist.getIcon(product)" alt="">
+                    </div>
                 </div>
             </div>
         </div>

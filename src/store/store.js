@@ -32,6 +32,9 @@ const authStore = reactive({
         localStorage.setItem('cart', '{}')
         localStorage.setItem('totalPrice', 0)
         router.push('/login')
+    },
+    getUserToken(){
+        return authStore.user.token
     }
 })
 
