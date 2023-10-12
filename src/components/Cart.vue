@@ -3,17 +3,7 @@
 import { ref, reactive, onBeforeMount } from 'vue'
 import axios from 'axios'
 import { cart } from '../store/cart'
-function getSlug(title) {
-    return title.toLowerCase().replace(/\s+/g, '-')
-}
 
-
-// function loadMore() {
-//     axios.get('https://dummyjson.com/posts?limit=20&skip=20')
-//         .then(res => {
-//             posts.value = [...posts.value, ...res.data.posts]
-//         })
-// }
 </script>
 <template>
     <div class="bg-white">
@@ -49,6 +39,16 @@ function getSlug(title) {
                 </div>
                 <button @click="cart.saveCartInLocalStorage()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                   Update Cart
+                </button>
+                <br>
+                <br>
+                <button @click="cart.clearCart()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  Clear Cart
+                </button>
+                <br>
+                <br>
+                <button @click="cart.checkout()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  Checkout
                 </button>
             </div>
         </div>
