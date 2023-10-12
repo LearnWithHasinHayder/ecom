@@ -4,6 +4,7 @@ import { ref, reactive, onBeforeMount } from 'vue'
 import axios from 'axios'
 import {cart} from '../store/cart'
 import { wishlist } from '../store/wishlist';
+import WishListIcon from '../components/Wishlist.vue'
 const products = ref([])
 function getSlug(title) {
     return title.toLowerCase().replace(/\s+/g, '-')
@@ -47,7 +48,8 @@ onBeforeMount(() => {
                         <button @click="cart.addItem(product)" class="mt-2 bg-blue-500 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded">
                             Add To Cart
                         </button>
-                        <img @click="wishlist.toggleWishList(product)" class="w-8 cursor-pointer" :src="wishlist.getIcon(product)" alt="">
+                        <!-- <img @click="wishlist.toggleWishList(product)" class="w-8 cursor-pointer" :src="wishlist.getIcon(product)" alt=""> -->
+                        <wish-list-icon :product="product"></wish-list-icon>
                     </div>
                 </div>
             </div>
